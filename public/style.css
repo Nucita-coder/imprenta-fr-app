@@ -139,6 +139,112 @@ body {
     body {
         padding-bottom: 75px !important;
     }
+
+    /* Reduce general padding */
+    .container-fluid {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+        padding-top: 20px !important;
+    }
+
+    /* Smaller headings */
+    h2 {
+        font-size: 1.4rem !important;
+    }
+
+    /* Make form controls comfortable for touch */
+    .form-control, .form-select {
+        font-size: 1rem !important;
+        padding: 10px 12px !important;
+        border-radius: 10px !important;
+    }
+    .form-control-sm, .form-select-sm {
+        font-size: 1rem !important;
+        padding: 10px 12px !important;
+    }
+    .form-label {
+        font-size: 0.85rem !important;
+        margin-bottom: 4px !important;
+    }
+    textarea.form-control {
+        min-height: 70px !important;
+    }
+
+    /* Full-width submit button on mobile */
+    #form-agregar .d-flex.justify-content-end {
+        justify-content: stretch !important;
+    }
+    #form-agregar .d-flex.justify-content-end .btn {
+        width: 100% !important;
+        padding: 12px !important;
+        font-size: 1rem !important;
+        border-radius: 10px !important;
+    }
+
+    /* Card body more compact */
+    .card-body {
+        padding: 16px !important;
+    }
+
+    /* Hide invoice preview on mobile (too much scroll) */
+    .invoice-preview {
+        display: none !important;
+    }
+
+    /* KPI cards: 2 per row */
+    #kpi-cards .col-md-3 {
+        flex: 0 0 50% !important;
+        max-width: 50% !important;
+    }
+    #kpi-cards .card-body {
+        padding: 12px 8px !important;
+    }
+    #kpi-cards h3 {
+        font-size: 1.3rem !important;
+    }
+
+    /* Table: horizontal scroll with smaller font */
+    .table {
+        font-size: 0.82rem !important;
+    }
+    .table th, .table td {
+        white-space: nowrap;
+        padding: 8px 6px !important;
+    }
+    .table .btn-sm {
+        padding: 4px 6px !important;
+        font-size: 0.75rem !important;
+    }
+
+    /* Charts: shorter on mobile */
+    #estadisticas-view canvas {
+        max-height: 200px !important;
+    }
+
+    /* Stats filter: stack vertically */
+    #estadisticas-view .d-flex.flex-wrap {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        width: 100%;
+    }
+    #estadisticas-view .form-select {
+        width: 100% !important;
+        min-width: unset !important;
+    }
+
+    /* Modal dialog full-width on mobile */
+    .modal-dialog {
+        margin: 8px !important;
+    }
+    .modal-content {
+        border-radius: 16px !important;
+    }
+
+    /* Mobile nav active style fix */
+    #mobile-nav .active-gold {
+        margin: 0 !important;
+        background-color: rgba(226, 192, 68, 0.15) !important;
+    }
 }
 
 /* Panel Derecho (Ticket y Recientes) */
