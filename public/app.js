@@ -15,12 +15,18 @@ const initTheme = () => {
 
 const updateThemeButton = (theme) => {
     const btn = document.getElementById('btn-theme-toggle');
-    if(btn) {
-        if(theme === 'dark') {
-            btn.innerHTML = '<i class="bi bi-sun-fill me-1 text-warning"></i> Modo Claro';
-        } else {
-            btn.innerHTML = '<i class="bi bi-moon-stars-fill me-1"></i> Modo Noche';
-        }
+    const btnMobile = document.getElementById('btn-theme-toggle-mobile');
+    
+    if(theme === 'dark') {
+        const darkHtml = '<i class="bi bi-sun-fill me-1 text-warning"></i> Modo Claro';
+        const darkHtmlMobile = '<i class="bi bi-sun-fill fs-5 d-block mb-1 text-warning"></i><small style="font-size: 0.65rem;">Claro</small>';
+        if(btn) btn.innerHTML = darkHtml;
+        if(btnMobile) btnMobile.innerHTML = darkHtmlMobile;
+    } else {
+        const lightHtml = '<i class="bi bi-moon-stars-fill me-1"></i> Modo Noche';
+        const lightHtmlMobile = '<i class="bi bi-moon-stars-fill fs-5 d-block mb-1"></i><small style="font-size: 0.65rem;">Noche</small>';
+        if(btn) btn.innerHTML = lightHtml;
+        if(btnMobile) btnMobile.innerHTML = lightHtmlMobile;
     }
 };
 
@@ -46,7 +52,9 @@ const toggleTheme = () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     const btnTheme = document.getElementById('btn-theme-toggle');
+    const btnThemeMobile = document.getElementById('btn-theme-toggle-mobile');
     if(btnTheme) btnTheme.addEventListener('click', toggleTheme);
+    if(btnThemeMobile) btnThemeMobile.addEventListener('click', toggleTheme);
 });
 
 initTheme();

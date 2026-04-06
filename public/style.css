@@ -134,7 +134,10 @@ body {
 
 @media (max-width: 768px) {
     #sidebar-wrapper {
-        display: none;
+        display: none !important;
+    }
+    body {
+        padding-bottom: 75px !important;
     }
 }
 
