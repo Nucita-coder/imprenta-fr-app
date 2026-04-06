@@ -167,7 +167,9 @@
                 <!-- Ver Pedidos -->
                 <div id="ver-view" class="view-section" style="display: none;">
                     <h2 class="mb-4 fw-bold">Lista de Pedidos</h2>
-                    <div class="card shadow-sm border-0" style="border-radius: 12px;">
+                    
+                    <!-- Desktop Table (hidden on mobile) -->
+                    <div class="card shadow-sm border-0 d-none d-md-block" style="border-radius: 12px;">
                         <div class="card-body p-4">
                             <div class="table-responsive">
                                 <table class="table table-hover align-middle">
@@ -191,21 +193,27 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Mobile Card List (hidden on desktop) -->
+                    <div id="pedidos-cards-mobile" class="d-md-none d-flex flex-column gap-3">
+                        <!-- Cards dinámicas generadas por JS -->
+                    </div>
                 </div>
 
                 <!-- Estadísticas -->
                 <div id="estadisticas-view" class="view-section" style="display: none;">
-                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-2">
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
                         <h2 class="mb-0 fw-bold">Estadísticas</h2>
-                        <div class="d-flex flex-wrap align-items-center gap-2">
-                            <button id="btn-exportar-pdf" class="btn btn-sm btn-outline-danger shadow-sm fw-medium" title="Descargar Reporte Completo en PDF">
-                                <i class="bi bi-file-earmark-pdf-fill me-1 d-none d-sm-inline"></i>PDF
-                            </button>
-                            <button id="btn-exportar-excel" class="btn btn-sm btn-outline-success shadow-sm fw-medium me-2" title="Descargar Datos en Excel (.xlsx)">
-                                <i class="bi bi-file-earmark-excel-fill me-1 d-none d-sm-inline"></i>Excel
-                            </button>
-                            <label class="text-muted mb-0 fw-medium d-none d-md-block" style="font-size: 0.9rem; white-space:nowrap;">Filtrar:</label>
-                            <select id="filtro-fecha" class="form-select form-select-sm" style="width: auto; min-width: 150px;">
+                        <div class="d-flex flex-column flex-sm-row align-items-stretch align-items-sm-center gap-2 w-100 w-md-auto" style="max-width: 100%;">
+                            <div class="d-flex gap-2">
+                                <button id="btn-exportar-pdf" class="btn btn-sm btn-outline-danger shadow-sm fw-medium flex-fill" title="Descargar Reporte Completo en PDF">
+                                    <i class="bi bi-file-earmark-pdf-fill me-1"></i>PDF
+                                </button>
+                                <button id="btn-exportar-excel" class="btn btn-sm btn-outline-success shadow-sm fw-medium flex-fill" title="Descargar Datos en Excel (.xlsx)">
+                                    <i class="bi bi-file-earmark-excel-fill me-1"></i>Excel
+                                </button>
+                            </div>
+                            <select id="filtro-fecha" class="form-select form-select-sm" style="min-width: 150px;">
                                 <option value="todas">Todas las Fechas</option>
                                 <option value="semana">Esta Semana</option>
                                 <option value="mes">Este Mes</option>
@@ -221,7 +229,7 @@
 
                     <!-- KPI Cards -->
                     <div class="row g-3 mb-4" id="kpi-cards">
-                        <div class="col-md-3">
+                        <div class="col-6 col-md-3">
                             <div class="card border-0 shadow-sm text-center" style="border-radius:12px">
                                 <div class="card-body py-3">
                                     <p class="text-muted mb-1" style="font-size:.8rem">Total Pedidos</p>
@@ -229,7 +237,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-6 col-md-3">
                             <div class="card border-0 shadow-sm text-center" style="border-radius:12px">
                                 <div class="card-body py-3">
                                     <p class="text-muted mb-1" style="font-size:.8rem">Ingresos Totales</p>
@@ -237,7 +245,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-6 col-md-3">
                             <div class="card border-0 shadow-sm text-center" style="border-radius:12px">
                                 <div class="card-body py-3">
                                     <p class="text-muted mb-1" style="font-size:.8rem">Ticket Promedio</p>
@@ -245,7 +253,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-6 col-md-3">
                             <div class="card border-0 shadow-sm text-center" style="border-radius:12px">
                                 <div class="card-body py-3">
                                     <p class="text-muted mb-1" style="font-size:.8rem">Categoría Top</p>
@@ -256,22 +264,22 @@
                     </div>
 
                     <!-- Charts Row 1 -->
-                    <div class="row g-4 mb-4">
-                        <div class="col-md-6">
+                    <div class="row g-3 g-md-4 mb-4">
+                        <div class="col-12 col-md-6">
                             <div class="card shadow-sm border-0" style="border-radius: 12px;">
-                                <div class="card-body p-4">
-                                    <h6 class="fw-bold mb-3"><i class="bi bi-bar-chart-fill me-2 text-primary"></i>Pedidos por Categoría</h6>
-                                    <div style="position: relative; height: 260px; width: 100%;">
+                                <div class="card-body p-3 p-md-4">
+                                    <h6 class="fw-bold mb-3" style="font-size: 0.9rem;"><i class="bi bi-bar-chart-fill me-2 text-primary"></i>Pedidos por Categoría</h6>
+                                    <div style="position: relative; height: 220px; width: 100%;">
                                         <canvas id="chart-categorias"></canvas>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-12 col-md-6">
                             <div class="card shadow-sm border-0" style="border-radius: 12px;">
-                                <div class="card-body p-4">
-                                    <h6 class="fw-bold mb-3"><i class="bi bi-graph-up me-2 text-warning"></i>Distribución de Precios</h6>
-                                    <div style="position: relative; height: 260px; width: 100%;">
+                                <div class="card-body p-3 p-md-4">
+                                    <h6 class="fw-bold mb-3" style="font-size: 0.9rem;"><i class="bi bi-graph-up me-2 text-warning"></i>Distribución de Precios</h6>
+                                    <div style="position: relative; height: 220px; width: 100%;">
                                         <canvas id="chart-precios"></canvas>
                                     </div>
                                 </div>
@@ -280,22 +288,22 @@
                     </div>
 
                     <!-- Charts Row 2 -->
-                    <div class="row g-4 mb-4">
-                        <div class="col-md-6">
+                    <div class="row g-3 g-md-4 mb-4">
+                        <div class="col-12 col-md-6">
                             <div class="card shadow-sm border-0" style="border-radius: 12px;">
-                                <div class="card-body p-4">
-                                    <h6 class="fw-bold mb-3"><i class="bi bi-calendar-week me-2 text-info"></i>Pedidos por Día de la Semana</h6>
-                                    <div style="position: relative; height: 260px; width: 100%;">
+                                <div class="card-body p-3 p-md-4">
+                                    <h6 class="fw-bold mb-3" style="font-size: 0.9rem;"><i class="bi bi-calendar-week me-2 text-info"></i>Pedidos por Día de la Semana</h6>
+                                    <div style="position: relative; height: 220px; width: 100%;">
                                         <canvas id="chart-dias"></canvas>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-12 col-md-6">
                             <div class="card shadow-sm border-0" style="border-radius: 12px;">
-                                <div class="card-body p-4">
-                                    <h6 class="fw-bold mb-3"><i class="bi bi-pie-chart-fill me-2 text-success"></i>Tipos de Pedidos (Por Precio)</h6>
-                                    <div style="position: relative; height: 260px; width: 100%;">
+                                <div class="card-body p-3 p-md-4">
+                                    <h6 class="fw-bold mb-3" style="font-size: 0.9rem;"><i class="bi bi-pie-chart-fill me-2 text-success"></i>Tipos de Pedidos (Por Precio)</h6>
+                                    <div style="position: relative; height: 220px; width: 100%;">
                                         <canvas id="chart-tipos"></canvas>
                                     </div>
                                 </div>
@@ -304,12 +312,12 @@
                     </div>
 
                     <!-- Charts Row 3 -->
-                    <div class="row g-4 mt-0">
+                    <div class="row g-3 g-md-4 mt-0">
                         <div class="col-12">
                             <div class="card shadow-sm border-0" style="border-radius: 12px;">
-                                <div class="card-body p-4">
-                                    <h6 class="fw-bold mb-3"><i class="bi bi-activity me-2 text-danger"></i>Línea de Tiempo: Evolución de Ventas</h6>
-                                    <div style="position: relative; height: 300px; width: 100%;">
+                                <div class="card-body p-3 p-md-4">
+                                    <h6 class="fw-bold mb-3" style="font-size: 0.9rem;"><i class="bi bi-activity me-2 text-danger"></i>Línea de Tiempo: Evolución de Ventas</h6>
+                                    <div style="position: relative; height: 250px; width: 100%;">
                                         <canvas id="chart-timeline"></canvas>
                                     </div>
                                 </div>

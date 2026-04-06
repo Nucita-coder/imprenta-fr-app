@@ -566,18 +566,24 @@ async function renderUltimosPedidos() {
 async function renderTabla() {
     const pedidos = await dbObtenerTodos();
     tablaPedidos.innerHTML = '';
+    const mobileContainer = document.getElementById('pedidos-cards-mobile');
+    if (mobileContainer) mobileContainer.innerHTML = '';
 
     if (pedidos.length === 0) {
         tablaPedidos.innerHTML = `
             <tr>
-                <td colspan="8" class="text-center text-muted py-4">
+                <td colspan="9" class="text-center text-muted py-4">
                     No hay pedidos registrados.
                 </td>
             </tr>`;
+        if (mobileContainer) {
+            mobileContainer.innerHTML = `<div class="text-center text-muted py-5"><i class="bi bi-inbox fs-1 d-block mb-2"></i>No hay pedidos registrados.</div>`;
+        }
         return;
     }
 
     pedidos.forEach(pedido => {
+        // --- Desktop row ---
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td>#${pedido.id}</td>
@@ -606,6 +612,45 @@ async function renderTabla() {
                 </button>
             </td>`;
         tablaPedidos.appendChild(tr);
+
+        // --- Mobile card ---
+        if (mobileContainer) {
+            const estadoColor = pedido.estado === 'Realizado' ? 'bg-success' : pedido.estado === 'En proceso' ? 'bg-primary' : 'bg-warning text-dark';
+            const card = document.createElement('div');
+            card.className = 'card border-0 shadow-sm';
+            card.style.borderRadius = '14px';
+            card.innerHTML = `
+                <div class="card-body p-3">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div>
+                            <span class="fw-bold" style="font-size:1.05rem;">${pedido.cliente}</span>
+                            <span class="text-muted ms-2" style="font-size:0.8rem;">#${pedido.id}</span>
+                        </div>
+                        <span class="badge ${estadoColor}" style="font-size:0.7rem;">${pedido.estado || 'Pendiente'}</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
+                        <span class="badge bg-secondary bg-opacity-50" style="font-size:0.75rem;"><i class="bi bi-tag me-1"></i>${pedido.categoria || '—'}</span>
+                        <span class="text-muted" style="font-size:0.8rem;"><i class="bi bi-calendar3 me-1"></i>${formatFecha(pedido.fecha)}</span>
+                        <span class="text-muted" style="font-size:0.8rem;"><i class="bi bi-boxes me-1"></i>${pedido.cantidad}</span>
+                    </div>
+                    <p class="text-muted mb-2" style="font-size:0.85rem; line-height:1.4;">${pedido.detalle}</p>
+                    <div class="d-flex justify-content-between align-items-center pt-2" style="border-top: 1px solid rgba(150,150,150,0.1);">
+                        <span class="fw-bold text-success" style="font-size:1.15rem;">$${pedido.precio.toFixed(2)}</span>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-sm btn-outline-info" onclick="verFacturaModal(${pedido.id})" style="border-radius:8px;">
+                                <i class="bi bi-receipt"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary" onclick="editarPedido(${pedido.id})" style="border-radius:8px;">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" onclick="eliminarPedido(${pedido.id})" style="border-radius:8px;">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>`;
+            mobileContainer.appendChild(card);
+        }
     });
 }
 
