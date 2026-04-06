@@ -1,0 +1,229 @@
+:root {
+    --bg-dark: #969696;
+    --text-gold: #f9c401;
+    --hover-gold: #f4d052;
+    --border-gold: #cba83a;
+    --bg-light-modern: #fafafa;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-light-modern);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark Mode Overrides */
+[data-bs-theme="dark"] {
+    --bg-light-modern: #121212;
+    --bg-dark: #1f1f1f; /* darker sidebar */
+}
+
+[data-bs-theme="dark"] .card {
+    background-color: #1a1d21 !important;
+    border: 1px solid rgba(255,255,255,0.05) !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3) !important;
+}
+
+[data-bs-theme="dark"] .table-light {
+    background-color: #2b3035 !important;
+    color: #e9ecef !important;
+}
+[data-bs-theme="dark"] .table-light th {
+    background-color: #2b3035 !important;
+    color: #e9ecef !important;
+    border-color: #495057 !important;
+}
+
+[data-bs-theme="dark"] .text-dark {
+    color: #f8f9fa !important;
+}
+
+[data-bs-theme="dark"] .form-control, 
+[data-bs-theme="dark"] .form-select {
+    background-color: #212529;
+    border-color: #343a40;
+    color: #e9ecef;
+}
+
+[data-bs-theme="dark"] .form-control:focus, 
+[data-bs-theme="dark"] .form-select:focus {
+    background-color: #2b3035;
+    color: #fff;
+    border-color: var(--text-gold);
+    box-shadow: 0 0 0 0.25rem rgba(249, 196, 1, 0.25);
+}
+
+.text-gold {
+    color: var(--text-gold) !important;
+}
+
+.tracking-wide {
+    letter-spacing: 0.05em;
+}
+
+.bg-dark {
+    background-color: var(--bg-dark) !important;
+}
+
+.border-dark {
+    border-color: #1a1a1a !important;
+}
+
+.bg-light-modern {
+    background-color: var(--bg-light-modern) !important;
+}
+
+
+#wrapper {
+    overflow-x: hidden;
+}
+
+#sidebar-wrapper {
+    min-height: 100vh;
+    width: 250px;
+    background-color: var(--bg-dark);
+}
+
+#page-content-wrapper {
+    min-width: 0;
+}
+
+#sidebar-wrapper .list-group-item {
+    font-size: 0.95rem;
+    padding: 0.8rem 1rem;
+    background-color: transparent !important;
+    border: none;
+    transition: all 0.2sease-in-out;
+}
+
+.active-gold {
+    background-color: rgba(226, 192, 68, 0.1) !important;
+    color: var(--text-gold) !important;
+    border-radius: 8px;
+    margin: 0 1rem;
+}
+
+.hover-gold:hover {
+    color: var(--text-gold) !important;
+    background-color: rgba(255, 255, 255, 0.03) !important;
+    border-radius: 8px;
+    margin: 0 1rem;
+}
+
+
+.quick-action-card {
+    border-radius: 12px !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.quick-action-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.icon-circle {
+    width: 65px;
+    height: 65px;
+    border-color: var(--border-gold) !important;
+}
+
+.metric-card {
+    border-radius: 12px !important;
+}
+
+@media (max-width: 768px) {
+    #sidebar-wrapper {
+        display: none;
+    }
+}
+
+/* Panel Derecho (Ticket y Recientes) */
+.ticket-preview {
+    transition: transform 0.2s ease;
+}
+.ticket-preview:hover {
+    transform: translateY(-2px);
+}
+[data-bs-theme="dark"] .ticket-preview {
+    border-color: rgba(255,255,255,0.1) !important;
+}
+[data-bs-theme="dark"] #ticket-total-box {
+    background-color: rgba(0,0,0,0.2) !important;
+}
+#lista-recientes .list-group-item {
+    background-color: transparent;
+    border-color: rgba(0,0,0,0.05);
+}
+[data-bs-theme="dark"] #lista-recientes .list-group-item {
+    border-color: rgba(255,255,255,0.05);
+}
+
+@media print {
+    body * {
+        visibility: hidden !important;
+    }
+    #imprimible-factura, #imprimible-factura * {
+        visibility: visible !important;
+    }
+    
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+        background-color: #fff !important;
+    }
+
+    #wrapper {
+        display: none !important;
+    }
+
+    #modal-factura {
+        position: static !important;
+        overflow: visible !important;
+    }
+
+    .modal-dialog {
+        max-width: 100% !important;
+        width: 100% !important;
+        margin: 0 !important;
+        transform: none !important;
+        align-items: flex-start !important; /* Elimina el centrado vertical */
+    }
+
+    .modal-content {
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    #imprimible-factura {
+        position: fixed !important; /* Fuerza su posición arriba a la izquierda del papel */
+        left: 0 !important;
+        top: 0 !important;
+        width: 100vw !important;
+        height: auto !important; /* Asegura que respete solo su propia altura */
+        margin: 0 !important;
+        padding: 10mm 15mm !important; /* Márgenes de impresión estándar */
+        background-color: white !important;
+    }
+
+    #imprimible-factura .card {
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    #imprimible-factura * {
+        color: #000 !important;
+    }
+    #imprimible-factura .text-muted {
+        color: #333 !important;
+    }
+    #imprimible-factura hr {
+        border-color: #000 !important;
+        opacity: 0.5 !important;
+    }
+    #factura-estado-badge {
+        border: 1px solid #000 !important;
+        background: transparent !important;
+        color: #000 !important;
+    }
+}
