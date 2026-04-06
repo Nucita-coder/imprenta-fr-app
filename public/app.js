@@ -1002,12 +1002,19 @@ async function renderEstadisticas() {
                                 dataStr = val % 1 !== 0 ? '$' + val.toFixed(2) : '$' + val;
                             }
                             
-                            ctx.fillStyle = isBar ? '#4b5563' : '#e11d48'; // gris ocuro para bars, rosa fuerte para puntos
+                            const isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
+                            // Ajustar colores para modo oscuro y dar un outline (stroke) para que no choquen
+                            ctx.fillStyle = isBar ? (isDark ? '#9ca3af' : '#4b5563') : (isDark ? '#fb7185' : '#e11d48');
                             ctx.font = 'bold 12px Inter, sans-serif';
                             ctx.textAlign = 'center';
                             ctx.textBaseline = 'bottom';
                             
-                            const yOffset = isBar ? 4 : 12; // Qué tanto subirlo sobre el punto/barra
+                            ctx.strokeStyle = isDark ? '#1a1d21' : '#ffffff';
+                            ctx.lineWidth = 4;
+                            
+                            const yOffset = isBar ? 6 : 18; // Subir más para evitar colapsar
+                            
+                            ctx.strokeText(dataStr, element.x, element.y - yOffset);
                             ctx.fillText(dataStr, element.x, element.y - yOffset);
                         });
                     }
@@ -1061,12 +1068,14 @@ async function renderEstadisticas() {
                         type: 'linear', display: true, position: 'left',
                         title: { display: true, text: 'Monto ($)', font: { family: 'Inter' } },
                         beginAtZero: true,
+                        grace: '20%', // Da un espacio de seguridad encima del pico más alto
                         grid: { color: 'rgba(0,0,0,0.05)' }
                     },
                     y1: {
                         type: 'linear', display: true, position: 'right',
                         title: { display: true, text: 'Pedidos (\u0023)', font: { family: 'Inter' } },
                         beginAtZero: true,
+                        grace: '20%',
                         ticks: { stepSize: 1 },
                         grid: { drawOnChartArea: false }
                     }
